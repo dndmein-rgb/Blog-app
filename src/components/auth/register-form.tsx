@@ -7,6 +7,8 @@ import {z} from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { signUp } from "@/lib/auth-client";
+import { toast } from "sonner";
 
 const registerSchema = z
   .object({
@@ -22,7 +24,11 @@ const registerSchema = z
     path: ["confirmPassword"],
   });
 type RegisterFormValues = z.infer<typeof registerSchema>;
-function RegisterForm() {
+
+interface RegisterFormProps{
+  onSuccess?:()=>void
+}
+function RegisterForm({onSuccess}:RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
@@ -37,10 +43,23 @@ function RegisterForm() {
   const onRegisterSubmit=async(values:RegisterFormValues)=>{
     setIsLoading(true);
     try {
-        console.log(values);
-        
-    } catch (error) {
-        console.log(error)
+        const {error}=await signUp.email({
+          name:values.name,
+          email:values.email,
+          password:values.password,
+        })
+        if(error){
+          toast(error.message ?? "Failed to create account");
+          return
+        }
+        toast("Your account has been created successfully. Please sign in with email & password")
+        if(onSuccess){
+          onSuccess();
+        }
+    } catch (e) {
+      console.log(e)
+      toast("Something went wrong. Please try again.");
+       
     }finally{
         setIsLoading(false)
     }
@@ -69,7 +88,7 @@ function RegisterForm() {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your Email" {...field} />
+                <Input type="email" placeholder="Enter your Email" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
