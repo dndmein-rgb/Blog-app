@@ -4,8 +4,12 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { useSession } from "@/lib/auth-client";
+import UserMenu from "../auth/user-menu";
 
 function Header() {
+  const {data:session,isPending}=useSession();
+  const router = useRouter();
   const navItems = [
     {
       label: "Home",
@@ -16,7 +20,7 @@ function Header() {
       href: "/post/create",
     },
   ];
-  const router = useRouter();
+  
   return (
     <header className="border-b bg-background sticky top-0 z-10">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
@@ -44,11 +48,11 @@ function Header() {
           </div>
           {/*Placeholder for theme toggle */}
           <div className="flex items-center gap-2">
-            <Button className="cursor-pointer"
+           {isPending ? null:session?.user ? <UserMenu user={session?.user} /> :  <Button className="cursor-pointer"
               onClick={() => router.push("/auth")}
               variant={"default"}
               
-            >Login</Button>
+            >Login</Button>}
           </div>
         </div>
       </div>
