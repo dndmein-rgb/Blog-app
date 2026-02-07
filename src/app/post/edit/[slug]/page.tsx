@@ -1,5 +1,6 @@
 import Container from "@/components/layout/container";
 import PostForm from "@/components/post/post-form";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { auth } from "@/lib/auth";
 import { getPostBySlug } from "@/lib/db/queries";
 import { headers } from "next/headers";

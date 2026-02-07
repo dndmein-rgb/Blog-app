@@ -23,11 +23,13 @@ const registerSchema = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
 type RegisterFormValues = z.infer<typeof registerSchema>;
 
 interface RegisterFormProps{
   onSuccess?:()=>void
 }
+
 function RegisterForm({onSuccess}:RegisterFormProps) {
   const [isLoading, setIsLoading] = useState(false);
   const form = useForm<RegisterFormValues>({
@@ -59,11 +61,11 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
     } catch (e) {
       console.log(e)
       toast.error("Something went wrong. Please try again.");
-       
     }finally{
         setIsLoading(false)
     }
   }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onRegisterSubmit)} className="space-y-5">
@@ -99,9 +101,9 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-sm fbel>
+              <FormLabel className="text-sm font-medium">Password</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} className="h- />
+                <Input type="password" placeholder="••••••••" {...field} className="h-10" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,7 +114,7 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel className="text-sm font-mediFormLabel>
+              <FormLabel className="text-sm font-medium">Confirm Password</FormLabel>
               <FormControl>
                 <Input type="password" placeholder="••••••••" {...field} className="h-10" />
               </FormControl>
@@ -120,8 +122,8 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full h-10 font-medium" disabing}>
-          {isLoading ? "Creating Account..." : "Create Accoun"}
+        <Button type="submit" className="w-full h-10 font-medium" disabled={isLoading}>
+          {isLoading ? "Creating Account..." : "Create Account"}
         </Button>
       </form>
     </Form>
