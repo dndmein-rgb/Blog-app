@@ -2,7 +2,7 @@
 
 A modern, elegant blogging platform built with Next.js that empowers writers to share their stories with the world.
 
-![Inkwell Banner](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
+![Inkwell Banner](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
 ![Drizzle ORM](https://img.shields.io/badge/Drizzle-ORM-green?style=for-the-badge)
 ![License](https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge)
@@ -13,7 +13,7 @@ A modern, elegant blogging platform built with Next.js that empowers writers to 
 - **📝 Rich Text Editor** - Write and format your stories with ease
 - **🔐 User Authentication** - Secure sign-up and login functionality
 - **📱 Responsive Design** - Perfect reading experience on any device
-- **⚡ Fast Performance** - Built on Next.js 15 with optimized loading
+- **⚡ Fast Performance** - Built on Next.js 16 with optimized loading
 - **🗄️ Database Integration** - Powered by Drizzle ORM for efficient data management
 - **🌐 SEO Optimized** - Server-side rendering for better search visibility
 
@@ -23,7 +23,7 @@ Check out the live application: [blog-app-opal-alpha.vercel.app](https://blog-ap
 
 ## 🛠️ Tech Stack
 
-- **Framework:** [Next.js 15](https://nextjs.org/)
+- **Framework:** [Next.js 16](https://nextjs.org/)
 - **Language:** [TypeScript](https://www.typescriptlang.org/)
 - **Database ORM:** [Drizzle ORM](https://orm.drizzle.team/)
 - **UI Components:** [shadcn/ui](https://ui.shadcn.com/)
@@ -166,23 +166,6 @@ Inkwell can be deployed to any platform that supports Next.js:
 - [AWS Amplify](https://aws.amazon.com/amplify/)
 - [DigitalOcean App Platform](https://www.digitalocean.com/products/app-platform)
 
-## 🤝 Contributing
-
-Contributions are welcome! Here's how you can help:
-
-1. Fork the repository
-2. Create a new branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Commit your changes (`git commit -m 'Add some amazing feature'`)
-5. Push to the branch (`git push origin feature/amazing-feature`)
-6. Open a Pull Request
-
-Please make sure to update tests as appropriate and follow the existing code style.
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
 ## 🙏 Acknowledgments
 
 - [Next.js Documentation](https://nextjs.org/docs) - For the amazing framework
@@ -190,29 +173,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [Drizzle ORM](https://orm.drizzle.team/) - For the excellent ORM
 - [Vercel](https://vercel.com/) - For hosting and deployment
 
-## 📧 Contact
 
-**Developer:** dndmein-rgb
 
-- GitHub: [@dndmein-rgb](https://github.com/dndmein-rgb)
-- Project Link: [https://github.com/dndmein-rgb/Inkwell](https://github.com/dndmein-rgb/Inkwell)
 
-## 🗺️ Roadmap
-
-- [ ] User profiles and avatars
-- [ ] Comments and discussions
-- [ ] Social sharing features
-- [ ] Bookmarking and reading lists
-- [ ] Email notifications
-- [ ] Dark mode support
-- [ ] Multiple language support
-- [ ] Analytics dashboard
-- [ ] Premium subscription features
-
----
-
-<div align="center">
-  Made with ❤️ by <a href="https://github.com/dndmein-rgb">dndmein-rgb</a>
   <br><br>
   If you find this project helpful, please consider giving it a ⭐️
 </div>
