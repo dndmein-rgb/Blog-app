@@ -15,11 +15,6 @@ export const auth=betterAuth({
     appName:"Next js blog",
     secret:process.env.BETTER_AUTH_SECRET,
     baseURL,
-    trustedOrigins: [
-        baseURL,
-        process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
-        'http://localhost:3000',
-    ].filter(Boolean) as string[],
     database:drizzleAdapter(db,{
         provider:'pg',
         schema:{
