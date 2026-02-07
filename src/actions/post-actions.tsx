@@ -39,7 +39,7 @@ export async function createPost(formData: FormData) {
           " A post with the same title already exists! Please try with a different title.",
       };
     }
-    const [newPost] = await  db
+    const [newPost] = await db
       .insert(posts)
       .values({
         title,
@@ -50,83 +50,132 @@ export async function createPost(formData: FormData) {
       })
       .returning();
 
-      //revalidate the homepage to get latest posts
-      revalidatePath('/')
-      revalidatePath(`/post/${slug}`)
-      revalidatePath('/profile')
+    //revalidate the homepage to get latest posts
+    revalidatePath("/");
+    revalidatePath(`/post/${slug}`);
+    revalidatePath("/profile");
 
-      return {
-        success:true,
-        message:"Post created successfully",
-        slug
-      }
-      
+    return {
+      success: true,
+      message: "Post created successfully",
+      slug,
+    };
   } catch (error) {
-    console.log(error)
-    return{
-        success:false,
-        message:"Failed to create new post"
-    }
+    console.log(error);
+    return {
+      success: false,
+      message: "Failed to create new post",
+    };
   }
 }
 
-export async function updatePost(postId:number,formData: FormData){
+export async function updatePost(postId: number, formData: FormData) {
   try {
-      const session =await auth.api.getSession({
-        headers:await headers()
-      })
-      if(!session ||!session?.user){
-        return {
-          success:false,
-          message:"You must logged in to edit a post!"
-        }
-      }
-        //get form data
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    if (!session || !session?.user) {
+      return {
+        success: false,
+        message: "You must logged in to edit a post!",
+      };
+    }
+    //get form data
     const title = formData.get("title") as string;
     const description = formData.get("description") as string;
     const content = formData.get("content") as string;
 
-    const slug=slugify(title)
-    const existingPost=await db.query.posts.findFirst({
-      where:and(eq(posts.slug,slug),ne(posts.id,postId))
-    })
+    const slug = slugify(title);
+    const existingPost = await db.query.posts.findFirst({
+      where: and(eq(posts.slug, slug), ne(posts.id, postId)),
+    });
 
-    if(existingPost){
+    if (existingPost) {
       return {
-        success:false,
-        message:"A post with this title already exists"
-      }
+        success: false,
+        message: "A post with this title already exists",
+      };
     }
 
-    const post=await db.query.posts.findFirst({
-      where:eq(posts.id,postId)
-    })
+    const post = await db.query.posts.findFirst({
+      where: eq(posts.id, postId),
+    });
 
-    if(post?.authorId !==session.user.id){
-      return{
-        success:false,
-        message:"You can only edit your own posts!"
-      }
+    if (post?.authorId !== session.user.id) {
+      return {
+        success: false,
+        message: "You can only edit your own posts!",
+      };
     }
-    await db.update(posts).set({
-      title,description,content,slug,updatedAt:new Date()
-    }).where(eq(posts.id,postId))
+    await db
+      .update(posts)
+      .set({
+        title,
+        description,
+        content,
+        slug,
+        updatedAt: new Date(),
+      })
+      .where(eq(posts.id, postId));
     //revalidate the homepage to get latest posts
-      revalidatePath('/')
-      revalidatePath(`/post/${slug}`)
-      revalidatePath('/profile')
+    revalidatePath("/");
+    revalidatePath(`/post/${slug}`);
+    revalidatePath("/profile");
 
-      return {
-        success:true,
-        message:"Post edited successfully",
-        slug
-      }
-  } catch (error) {
-     console.log(error)
     return {
-      success:false,
-      message:"Failed to update post"
+      success: true,
+      message: "Post edited successfully",
+      slug,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Failed to update post",
+    };
+  }
+}
+
+export async function deletePost(postId: number) {
+  try {
+    const session = await auth.api.getSession({
+      headers: await headers(),
+    });
+    if (!session || !session?.user) {
+      return {
+        success: false,
+        message: "You must logged in to delete post!",
+      };
     }
-   
+    const postToDelete = await db.query.posts.findFirst({
+      where: eq(posts.id, postId),
+    });
+    if(!postToDelete){
+      return {
+        success:false,
+        message:"Post not found!"
+      }
+    }
+      if (postToDelete?.authorId !== session.user.id) {
+      return {
+        success: false,
+        message: "You can only delete your own posts!",
+      };
+    }
+    await db.delete(posts).where(eq(posts.id,postId))
+
+    revalidatePath("/");
+    revalidatePath("/profile");
+    return {
+      success:true,
+      message:"Post deleted successfully"
+    }
+
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      message: "Failed to delete post",
+    };
   }
 }
