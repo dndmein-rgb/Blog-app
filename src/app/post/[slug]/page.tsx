@@ -1,7 +1,7 @@
-function CreatePostPage() {
+function PostDetailsPage() {
     return ( 
-        <div className="">CreatePostPage</div>
+        <div className="">PostDetailsPage</div>
      );
 }
 
-export default CreatePostPage;
+export default PostDetailsPage;

@@ -9,7 +9,6 @@ export const metadata:Metadata={
 }
 export default async function Home() {
   const posts=await getAllPosts()
-  console.log(posts);
   
   return (
     <main className="py-10">
@@ -19,7 +18,7 @@ export default async function Home() {
         <div className="text-center py-10">
           <h2 className="text-xl font-medium">No posts yet</h2>
         </div>
-        :<PostList />
+        :<PostList posts={posts} />
     }
       </div> 
       
