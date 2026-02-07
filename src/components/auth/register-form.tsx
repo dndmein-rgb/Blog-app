@@ -49,16 +49,16 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
           password:values.password,
         })
         if(error){
-          toast(error.message ?? "Failed to create account");
+          toast.error(error.message ?? "Failed to create account");
           return
         }
-        toast("Your account has been created successfully. Please sign in with email & password")
+        toast.success("Account created! Signing you in...")
         if(onSuccess){
           onSuccess();
         }
     } catch (e) {
       console.log(e)
-      toast("Something went wrong. Please try again.");
+      toast.error("Something went wrong. Please try again.");
        
     }finally{
         setIsLoading(false)
@@ -66,15 +66,15 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onRegisterSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onRegisterSubmit)} className="space-y-5">
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel className="text-sm font-medium">Full Name</FormLabel>
               <FormControl>
-                <Input placeholder="Enter your name" {...field} />
+                <Input placeholder="John Doe" {...field} className="h-10" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -86,9 +86,9 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel className="text-sm font-medium">Email Address</FormLabel>
               <FormControl>
-                <Input type="email" placeholder="Enter your Email" {...field} />
+                <Input type="email" placeholder="you@example.com" {...field} className="h-10" />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -99,9 +99,9 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <FormLabel className="text-sm fbel>
               <FormControl>
-                <Input type="password" placeholder="Enter your password" {...field} />
+                <Input type="password" placeholder="••••••••" {...field} className="h- />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -112,16 +112,16 @@ function RegisterForm({onSuccess}:RegisterFormProps) {
           name="confirmPassword"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Confirm Password</FormLabel>
+              <FormLabel className="text-sm font-mediFormLabel>
               <FormControl>
-                <Input  type="password" placeholder="Enter your password again" {...field} />
+                <Input type="password" placeholder="••••••••" {...field} className="h-10" />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full " disabled={isLoading}>
-          {isLoading ? "Creating Account" : "Create Account"}
+        <Button type="submit" className="w-full h-10 font-medium" disabing}>
+          {isLoading ? "Creating Account..." : "Create Accoun"}
         </Button>
       </form>
     </Form>

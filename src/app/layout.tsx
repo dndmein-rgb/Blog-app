@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Next JS Blog ",
-  description: "Next JS Blog using zustand ,drizzle and postgress",
+  title: "Inkwell - Share Your Stories",
+  description: "A modern blogging platform to share your thoughts, stories, and ideas with the world.",
 };
 
 export default function RootLayout({

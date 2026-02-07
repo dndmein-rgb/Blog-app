@@ -14,33 +14,36 @@ async function ProfilePage() {
         redirect('/')
     }
     return ( 
-        <main className="py-10">
-            <div className="max-w-7xl mx-auto px-4">
-                <div className="flex justify-between items-center mb-8">
-                    <div className="">
-                        <h1 className="text-3xl font-bold">Your Profile</h1>
+        <main className="min-h-screen bg-linear-to-b from-background via-background to-muted/20">
+            <div className="max-w-4xl mx-auto px-4 py-16">
+                <div className="flex justify-between items-center mb-12">
+                    <div>
+                        <h1 className="text-4xl font-bold mb-2">Your Profile</h1>
+                        <p className="text-muted-foreground">Manage your account and stories</p>
                     </div>
-                    <Button asChild>
+                    <Button asChild className="gap-2">
                         <Link href={'/post/create'}>
-                        <PlusCircle className="h-5 w-5 mr-2" />
-                        Create Post
+                        <PlusCircle className="h-5 w-5" />
+                        Write Story
                         </Link>
                     </Button>
                 </div>
-                <Card className="mb-8">
+                <Card className="border-border/50 shadow-lg">
                     <CardHeader>
-                        <CardTitle>
+                        <CardTitle className="text-2xl">
                             Account Information
                         </CardTitle>
-                        <CardDescription>Your Profile Info</CardDescription>
+                        <CardDescription>Your profile details</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <div className="space-y-2">
-                            <div className="">
-                                <span className="font-medium">Name: </span>{session?.user.name}
+                        <div className="space-y-6">
+                            <div className="pb-4 border-b border-border/30">
+                                <span className="text-sm font-medium text-muted-foreground">Full Name</span>
+                                <p className="text-lg font-semibold mt-1">{session?.user.name}</p>
                             </div>
-                            <div className="">
-                                <span className="font-medium">Email: </span>{session?.user.email}
+                            <div>
+                                <span className="text-sm font-medium text-muted-foreground">Email Address</span>
+                                <p className="text-lg font-semibold mt-1">{session?.user.email}</p>
                             </div>
                         </div>
                     </CardContent>

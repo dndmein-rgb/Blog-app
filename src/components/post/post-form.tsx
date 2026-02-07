@@ -92,50 +92,52 @@ function PostForm({ isEditing, post }: PostFormProps) {
     });
   };
   return (
-    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-6">
-      <div className="space-y-2">
-        <Label htmlFor="title">Title</Label>
+    <form onSubmit={handleSubmit(onFormSubmit)} className="space-y-8">
+      <div className="space-y-3">
+        <Label htmlFor="title" className="text-base font-semibold">Story Title</Label>
         <Input
           id="title"
-          placeholder="Enter post title "
-          {...register("title")} //<Input  //   name="title"//   onChange={someFn}  onBlur={someFn} ref={someRef}
+          placeholder="Give your story a compelling title" 
+          {...register("title")}
           disabled={isPending}
+          className="h-12 text-lg"
         />
         {errors.title && (
-          <p className="text-sm text-red-700">{errors.title.message} </p>
+          <p className="text-sm text-destructive">{errors.title.message} </p>
         )}
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="description">Description</Label>
+      <div className="space-y-3">
+        <Label htmlFor="description" className="text-base font-semibold">Summary</Label>
         <Textarea
           id="description"
           disabled={isPending}
-          placeholder="Enter a short description"
+          placeholder="Write a brief summary of your story"
           {...register("description")}
+          className="min-h-24 resize-none"
         />
         {errors.description && (
-          <p className="text-sm text-red-700">{errors.description.message} </p>
+          <p className="text-sm text-destructive">{errors.description.message} </p>
         )}
       </div>
-      <div className="space-y-2">
-        <Label htmlFor="content">Content</Label>
+      <div className="space-y-3">
+        <Label htmlFor="content" className="text-base font-semibold">Story Content</Label>
         <Textarea
           id="content"
-          className="min-h-62.5 resize-none"
+          className="min-h-96 resize-none font-mono text-sm"
           disabled={isPending}
-          placeholder="Enter post content"
+          placeholder="Write your complete story here..."
           {...register("content")}
         />
         {errors.content && (
-          <p className="text-sm text-red-700">{errors.content.message} </p>
+          <p className="text-sm text-destructive">{errors.content.message} </p>
         )}
       </div>
-      <Button type="submit" disabled={isPending} className="mt-5 w-full">
+      <Button type="submit" disabled={isPending} className="w-full h-11 text-base font-semibold">
         {isPending
-          ? "Saving Post..."
+          ? "Publishing..."
           : isEditing
-            ? "Update Post"
-            : "Create Post"}
+            ? "Update Story"
+            : "Publish Story"}
       </Button>
     </form>
   );

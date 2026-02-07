@@ -38,14 +38,14 @@ function UserMenu({ user }: UserMenuProps) {
         await signOut({
             fetchOptions:{
                 onSuccess:()=>{
-                    toast('You have been logged out successfully!') 
+                    toast.success('See you next time!') 
                     router.refresh()
                 }
             }
         })
     } catch (e) {
         console.log(e)
-        toast('Failed to logout! Please try again')
+        toast.error('Failed to logout')
     }finally{
         setIsLoading(false)
     }
@@ -54,36 +54,39 @@ function UserMenu({ user }: UserMenuProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant={"ghost"} className="relative h-8 w-8 rounded-full">
-          <Avatar className="h-8 w-8 ">
-            <AvatarFallback>{getInitials(user?.name) || "User"}</AvatarFallback>
+        <Button variant={"ghost"} className="relative h-9 w-9 rounded-full">
+          <Avatar className="h-9 w-9">
+            <AvatarFallback className="bg-linear-to-br from-blue-500 to-purple-600 text-white font-semibold">{getInitials(user?.name) || "U"}</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-56">
-        <div className="flex items-center justify-start gap-2 p-2">
+        <div className="flex items-center justify-start gap-3 p-3">
+          <Avatar className="h-10 w-10">
+            <AvatarFallback className="bg-linear-to-br from-blue-500 to-purple-600 text-white font-semibold">{getInitials(user?.name) || "U"}</AvatarFallback>
+          </Avatar>
           <div className="flex flex-col space-y-1 leading-none">
-            <p className="font-bold">{user.name}</p>
-            <p className="text-sm text-muted-foreground">{user?.email}</p>
+            <p className="font-semibold text-sm">{user.name}</p>
+            <p className="text-xs text-muted-foreground">{user?.email}</p>
           </div>
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/profile">
-            <UserIcon className="mr-2 h-4 w-4 " />
+            <UserIcon className="mr-2 h-4 w-4" />
             <span>Profile</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem className="cursor-pointer" asChild>
           <Link href="/post/create">
-            <PenSquare className="mr-2 h-4 w-4 " />
-            <span>Create</span>
+            <PenSquare className="mr-2 h-4 w-4" />
+            <span>Write Story</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-      <DropdownMenuItem className="cursor-pointer" onClick={handleLogOut} disabled={isLoading}>
-        <LogOut className="mr-2 h-4 w-4 "  />
-         <span>{isLoading  ? 'Logging out':'Log Out'}</span>
+      <DropdownMenuItem className="cursor-pointer text-destructive focus:text-destructive" onClick={handleLogOut} disabled={isLoading}>
+        <LogOut className="mr-2 h-4 w-4" />
+         <span>{isLoading  ? 'Signing out...':'Sign Out'}</span>
       </DropdownMenuItem>
       </DropdownMenuContent>
      

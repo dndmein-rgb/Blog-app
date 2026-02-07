@@ -35,28 +35,29 @@ const onLoginSubmit=async(values:LoginFormvalues)=>{
             rememberMe:true
         })
         if(error){
-            toast(error.message ?? 'Login Failed!')
+            toast.error(error.message ?? 'Login Failed!')
             return 
         }
-        toast('Login Success')
+        toast.success('Welcome back!')
         router.push('/')
     } catch (e) {
         console.log(e)
+        toast.error('An error occurred. Please try again.')
     }finally{
         setIsLoading(false)
     }
 }
     return ( 
         <Form {...form} >
-            <form onSubmit={form.handleSubmit(onLoginSubmit)} className='space-y-4'>
+            <form onSubmit={form.handleSubmit(onLoginSubmit)} className='space-y-5'>
             <FormField 
                 control={form.control}
                 name='email'
                 render={({field})=>(
                     <FormItem>
-                        <FormLabel >Email</FormLabel>
+                        <FormLabel className="text-sm font-medium">Email Address</FormLabel>
                         <FormControl>
-                            <Input placeholder='Enter your email' {...field} />
+                            <Input placeholder='you@example.com' {...field} className="h-10" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
@@ -67,17 +68,17 @@ const onLoginSubmit=async(values:LoginFormvalues)=>{
                 name='password'
                 render={({field})=>(
                     <FormItem>
-                        <FormLabel >Password</FormLabel>
+                        <FormLabel className="text-sm font-medium">Password</FormLabel>
                         <FormControl>
-                            <Input type='password' placeholder='Enter your password' {...field} />
+                            <Input type='password' placeholder='••••••••' {...field} className="h-10" />
                         </FormControl>
                         <FormMessage />
                     </FormItem>
                 )}
                  />
-                 <Button type="submit" className="w-full " disabled={isLoading}>
-                           {isLoading ? "Signing in..." : " Sign In"}
-                         </Button>
+                 <Button type="submit" className="w-full h-10 font-medium" disabng}>
+                           {isLoading ? "Signing in..." : "Sign In"}
+                 </Button>
             </form>
         </Form>
      );

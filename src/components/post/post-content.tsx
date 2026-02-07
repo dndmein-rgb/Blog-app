@@ -8,33 +8,34 @@ import DeletePostButton from "./delete-post-button"
 
 function PostContent({post,isAuthor}:PostContentProps) {
   return (
-    <Card>
-        <CardHeader>
-            <CardTitle className="text-3xl">
+    <article className="bg-card rounded-xl border border-border/50 shadow-lg overflow-hidden">
+        <div className="p-8 md:p-10">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 {post.title}
-            </CardTitle>
-            <CardDescription>
-                By {post.author.name} - {formatDate(post.createdAt)}
-            </CardDescription>
-        </CardHeader>
-        <CardContent className="">
-        <p className="text-muted-foreground mb-6 text-lg">{post.description}</p>
-        <p className="text-muted-foreground mb-6 text-lg">{post.content}</p>
-        </CardContent>
-        {isAuthor && (
-            <CardFooter>
-                <div className="flex gap-2">
-                    <Button asChild variant={'outline'} size='sm'>
-                        <Link href={`/post/edit/${post.slug}`}>
-                        <Pencil className="h-4 w-4 mr-2"/>
-                        Edit
-                        </Link>
-                    </Button>
-                    <DeletePostButton postId={post.id} />
+            </h1>
+            <div className="flex items-center gap-4 pb-8 border-b border-border/30">
+                <div>
+                    <p className="text-sm font-medium text-muted-foreground">By {post.author.name}</p>
+                    <p className="text-sm text-muted-foreground/70">{formatDate(post.createdAt)}</p>
                 </div>
-            </CardFooter>
+            </div>
+            <div className="prose prose-invert max-w-none my-8">
+                <p className="text-lg text-muted-foreground mb-6 leading-relaxed">{post.description}</p>
+                <div className="text-base leading-relaxed whitespace-pre-wrap">{post.content}</div>
+            </div>
+        </div>
+        {isAuthor && (
+            <div className="px-8 md:px-10 pb-8 border-t border-border/30 flex gap-3">
+                <Button asChild variant={'outline'} className="gap-2">
+                    <Link href={`/post/edit/${post.slug}`}>
+                    <Pencil className="h-4 w-4"/>
+                    Edit
+                    </Link>
+                </Button>
+                <DeletePostButton postId={post.id} />
+            </div>
         )}
-    </Card>
+    </article>
   )
 }
 

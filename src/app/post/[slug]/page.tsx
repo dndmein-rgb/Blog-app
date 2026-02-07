@@ -20,8 +20,10 @@ async function PostDetailsPage({
      if(!post)return notFound();
     const isAuthor=session?.user?.id===post.authorId
    
-  return <main className="py-10 max-w-4xl mx-auto">
-    <PostContent post={post} isAuthor={isAuthor} />
+  return <main className="min-h-screen bg-linear-to-b from-background via-background to-muted/20 py-16">
+    <div className="max-w-3xl mx-auto px-4">
+      <PostContent post={post} isAuthor={isAuthor} />
+    </div>
   </main>;
 }
 

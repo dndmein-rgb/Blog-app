@@ -16,23 +16,23 @@ function DeletePostButton({ postId }: DeletePostButtonProps) {
         try {
             const res=await deletePost(postId)
             if(res.success){
-                toast(res.message);
+                toast.success(res.message);
                 router.push('/')
                 router.refresh;
             }else{
-                 toast(res.message)
+                 toast.error(res.message)
             }
         } catch (error) {
            console.log(error)
-           toast("An error occurred while deleting the post! Please try again")
+           toast.error("Failed to delete story")
         }finally{
             setIsDeleting(false)
         }
     }
   return (
     <>
-      <Button disabled={isDeleting} onClick={handleDelete} variant={"destructive"}>
-        <Trash2 className="h-4 w-4 mr-2" />
+      <Button disabled={isDeleting} onClick={handleDelete} variant={"destructive"} className="gap-2">
+        <Trash2 className="h-4 w-4" />
        {isDeleting ? "Deleting..." : "Delete"}
       </Button>
     </>
