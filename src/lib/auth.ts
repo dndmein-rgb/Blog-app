@@ -2,10 +2,15 @@ import {betterAuth} from 'better-auth'
 import {drizzleAdapter} from 'better-auth/adapters/drizzle'
 import * as schema from './db/schema'
 import { db } from './db'
+
+const baseURL = process.env.BASE_URL || process.env.VERCEL_URL 
+  ? `https://${process.env.VERCEL_URL}` 
+  : 'http://localhost:3000'
+
 export const auth=betterAuth({
     appName:"Next js blog",
     secret:process.env.BETTER_AUTH_SECRET,
-    baseURL:process.env.BASE_URL,
+    baseURL,
     database:drizzleAdapter(db,{
         provider:'pg',
         schema:{
