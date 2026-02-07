@@ -29,3 +29,23 @@ export interface PostCardProps{
             }
         }
 }
+
+export interface PostContentProps{
+    post:{
+            id:number;
+            title:string;
+            description:string;
+            content:string;
+            createdAt:Date;
+            slug:string;
+            author:{
+                name:string;
+
+            }
+        },
+        isAuthor:Boolean;
+}
+
+export interface DeletePostButtonProps{
+    postId:number;
+}
