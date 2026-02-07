@@ -24,8 +24,19 @@ const postSchema = z.object({
   content: z.string().min(10, "Content must be atleast 10 characters long"),
 });
 
+interface PostFormProps {
+  isEditing?: boolean;
+  post?: {
+    id: number;
+    title: string;
+    description: string;
+    content: string;
+    slug: string;
+  };
+}
+
 type PostFormValues = z.infer<typeof postSchema>;
-function PostForm() {
+function PostForm({ isEditing, post }: PostFormProps) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
   const {
@@ -34,11 +45,18 @@ function PostForm() {
     formState: { errors },
   } = useForm<PostFormValues>({
     resolver: zodResolver(postSchema),
-    defaultValues: {
-      title: "",
-      content: "",
-      description: "",
-    },
+    defaultValues:
+      isEditing && post
+        ? {
+            title: post.title,
+            content: post.content,
+            description: post.description,
+          }
+        : {
+            title: "",
+            content: "",
+            description: "",
+          },
   });
 
   const onFormSubmit = async (data: PostFormValues) => {
@@ -57,8 +75,8 @@ function PostForm() {
           toast("Post created successfully!");
           router.refresh();
           router.push("/");
-        }else{
-          toast(res.message)
+        } else {
+          toast(res.message);
         }
       } catch (error) {
         console.log(error);
@@ -106,7 +124,11 @@ function PostForm() {
         )}
       </div>
       <Button type="submit" disabled={isPending} className="mt-5 w-full">
-        {isPending ? "Saving Post..." : "Create Post"}
+        {isPending
+          ? "Saving Post..."
+          : isEditing
+            ? "Update Post"
+            : "Create Post"}
       </Button>
     </form>
   );
